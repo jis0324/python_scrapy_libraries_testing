@@ -16,7 +16,7 @@ class TestSpider(scrapy.Spider):
     script = """
         function main(splash, args)
             assert(splash:go(args.url))
-            assert(splash:wait(0.5))
+            assert(splash:wait(1))
             return {
                 html = splash:html(),
             }
@@ -24,16 +24,16 @@ class TestSpider(scrapy.Spider):
     """
 
     def start_requests(self):
-        # yield SplashRequest(url = "https://www.bcmitsubishiofsaltillo.com/new-vehicles/", callback = self.parse, endpoint = "execute", args = {
-        #     "lua_source": self.script
-        # })
-
-        yield SplashRequest(url = "https://www.bcmitsubishiofsaltillo.com/new-vehicles/", callback = self.parse, endpoint='render.html', args={
-            'wait': 0.5
+        yield SplashRequest(url = "https://www.bchyundaioftupelo.com/new-vehicles/", callback = self.parse, endpoint = "execute", args = {
+            "lua_source": self.script
         })
+
+        # yield SplashRequest(url = "https://www.bcmitsubishiofsaltillo.com/new-vehicles/", callback = self.parse, endpoint='render.html', args={
+        #     'wait': 1
+        # })
 
 
     # parse item from response
     def parse(self, response):
         with open("{}/scrapy_splash_test.txt".format(base_dir), "w", encoding="utf-8") as ff:
-            ff.write(response.text)
+            ff.write(response.url + "\n\n\n" + response.text)
